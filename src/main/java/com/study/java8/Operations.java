@@ -7,6 +7,7 @@ import com.study.java8.utils.MockGenerator;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
@@ -37,6 +38,10 @@ public class Operations {
         filterByBrandVolkswagenAndMapWithStreamAndLambda();
         resetArray();
         filterByBrandVolkswagenAndMapWithStreamAndFunctionRef();
+        resetArray();
+        countBrandWithStreamAndFunctionRef();
+        resetArray();
+        orderByBrandWithStreamAndFunctionRef();
     }
 
     private static void resetArray() {
@@ -189,5 +194,28 @@ public class Operations {
                 .filter(car -> car.brand().equals("Volkswagen"))
                 .map(VolkswagenCar::new)
                 .collect(Collectors.toList());
+    }
+
+    /**
+     * Count the amount of complex objects in an array
+     * using Stream API and lambda for predicate
+     * Type of comps: String (non-primitive)
+     */
+    private static long countBrandWithStreamAndFunctionRef() {
+        return cars
+                .stream()
+                .filter(car -> car.brand().equals("Volkswagen"))
+                .count();
+    }
+
+    /**
+     * Count the amount of complex objects in an array
+     * using Stream API and lambda for predicate
+     * Type of comps: String (non-primitive)
+     */
+    private static Map<String, List<Car>> orderByBrandWithStreamAndFunctionRef() {
+        return cars
+                .stream()
+                .collect(Collectors.groupingBy(Car::brand));
     }
 }
