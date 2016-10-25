@@ -1,67 +1,28 @@
 package com.study.java8;
 
+import com.study.java8.enums.Color;
 import com.study.java8.model.Car;
 import com.study.java8.model.VolkswagenCar;
-import com.study.java8.utils.MockGenerator;
 
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-public class Operations {
-    private static List<Car> cars;
-    private static List<VolkswagenCar> volkswagenCars;
-
-    public static void main(String... args) {
-        resetArray();
-        orderByCarIdWithCollectionsAnonymousFunction(true);
-        resetArray();
-        orderByCarIdWithCollectionsLambda(true);
-        resetArray();
-        orderByCarIdWithStream(true);
-        resetArray();
-        orderByCarModelWithCollections(true);
-        resetArray();
-        orderByCarModelWithStream(true);
-        resetArray();
-        filterByCarSpeedHigherThan130WithStreamAndLambda();
-        resetArray();
-        filterByCarSpeedHigherThan130WithStream();
-        resetArray();
-        filterByCarSpeedHigherThan130WithStream();
-        resetArray();
-        filterByBrandWithStreamAndLambda("Volkswagen");
-        resetArray();
-        filterByBrandVolkswagenAndMapWithStreamAndLambda();
-        resetArray();
-        filterByBrandVolkswagenAndMapWithStreamAndFunctionRef();
-        resetArray();
-        countBrandWithStreamAndFunctionRef();
-        resetArray();
-        orderByBrandWithStreamAndFunctionRef();
-    }
-
-    private static void resetArray() {
-        cars = MockGenerator.generateCars(100000);
-    }
-
-    private static void printAll() {
-        System.out.print("Printing all cars");
-        cars.forEach(car -> System.out.println(car.getId() +
-                " - " + car.brand() + " " + car.model() + ","));
-        System.out.println("Printed: " + cars.size() + " elements");
-    }
+public class CarOperationUtils {
 
     /**
-     * Ordering an array of complex objects using Collections.sort
+     * Order an array of Cars using Collections.sort
      * and anonymous function for comparator.
      * Type of comps: int (primitive)
+     *
+     * @param cars list of cars.
+     * @param desc boolean if descending or not.
+     *
+     * @return List of cars ordered by Id
      */
-    private static void orderByCarIdWithCollectionsAnonymousFunction(boolean desc) {
-        Collections.sort(cars, new Comparator<Car>() {
+    public List<Car> orderByCarIdWithCollectionsAnonymousFunction(List<Car> cars, boolean desc) {
+        List<Car> orderedCars = new ArrayList<>(cars);
+        Collections.sort(orderedCars, new Comparator<Car>() {
             @Override
             public int compare(Car o1, Car o2) {
                 return desc
@@ -69,6 +30,7 @@ public class Operations {
                         : o1.getId() - o2.getId();
             }
         });
+        return orderedCars;
     }
 
     /**
@@ -77,24 +39,25 @@ public class Operations {
      * With one line command we can perform a sort.
      * Type of comps: int (primitive)
      */
-    private static void orderByCarIdWithCollectionsLambda(boolean desc) {
+    public List<Car> orderByCarIdWithCollectionsLambda(List<Car> cars, boolean desc) {
             Collections.sort(cars, (Car car0, Car car1) -> desc
                     ? car0.getId() - car1.getId()
                     : car1.getId() - car0.getId());
+        return cars;
     }
 
     /**
      * Ordering an array of complex objects using Stream API
      * Type of comps: int (primitive)
      */
-    private static void orderByCarIdWithStream(boolean desc) {
+    public List<Car> orderByCarIdWithStream(List<Car> cars, boolean desc) {
         if (desc)
-            cars = cars
+            return cars
                     .stream()
                     .sorted(Comparator.comparingInt(Car::getId))
                     .collect(Collectors.toList());
         else
-            cars = cars
+            return cars
                     .stream()
                     .sorted(Comparator.comparingInt(Car::getId).reversed())
                     .collect(Collectors.toList());
@@ -105,18 +68,19 @@ public class Operations {
      * and lambda for comparator.
      * Type of comps: String (non-primitive)
      */
-    private static void orderByCarModelWithCollections(boolean desc) {
+    public List<Car> orderByCarModelWithCollections(List<Car> cars, boolean desc) {
         Collections.sort(cars, (Car o1, Car o2) -> desc
                             ? o2.model().compareToIgnoreCase(o1.model())
                             : o1.model().compareToIgnoreCase(o2.model()));
+        return cars;
     }
 
     /**
      * Ordering an array of complex objects using Stream API
      * Type of comps: String (non-primitive)
      */
-    private static void orderByCarModelWithStream(boolean desc) {
-            cars =  desc
+    public List<Car> orderByCarModelWithStream(List<Car> cars, boolean desc) {
+            return desc
                     ? cars
                     .stream()
                     .sorted(Comparator.comparing(Car::model, String.CASE_INSENSITIVE_ORDER))
@@ -132,8 +96,8 @@ public class Operations {
      * and anonymous function for predicate
      * Type of comps: int (primitive)
      */
-    private static void filterByCarSpeedHigherThan130WithStream() {
-        cars = cars
+    public List<Car> filterByCarSpeedHigherThan130WithStream(List<Car> cars) {
+        return cars
                 .stream()
                 .filter(new Predicate<Car>() {
                     @Override
@@ -149,8 +113,8 @@ public class Operations {
      * and lambda for predicate
      * Type of comps: int (primitive)
      */
-    private static void filterByCarSpeedHigherThan130WithStreamAndLambda() {
-        cars = cars
+    public List<Car> filterByCarSpeedHigherThan130WithStreamAndLambda(List<Car> cars) {
+        return cars
                 .stream()
                 .filter(car -> car.maxSpeed() > 130)
                 .collect(Collectors.toList());
@@ -161,8 +125,8 @@ public class Operations {
      * and lambda for predicate
      * Type of comps: String (non-primitive)
      */
-    private static void filterByBrandWithStreamAndLambda(String brand) {
-        cars = cars
+    public List<Car> filterByBrandWithStreamAndLambda(List<Car> cars, String brand) {
+        return cars
                 .stream()
                 .filter(car -> car.brand().contains(brand))
                 .collect(Collectors.toList());
@@ -174,8 +138,8 @@ public class Operations {
      * different type complex objects array
      * Type of comps: String (non-primitive)
      */
-    private static void filterByBrandVolkswagenAndMapWithStreamAndLambda() {
-        volkswagenCars = cars
+    public List<VolkswagenCar> filterByBrandVolkswagenAndMapWithStreamAndLambda(List<Car> cars) {
+        return cars
                 .stream()
                 .filter(car -> car.brand().equals("Volkswagen"))
                 .map(car -> new VolkswagenCar(car))
@@ -188,8 +152,8 @@ public class Operations {
      * and mapping it to a different type complex objects array
      * Type of comps: String (non-primitive)
      */
-    private static void filterByBrandVolkswagenAndMapWithStreamAndFunctionRef() {
-        volkswagenCars = cars
+    public List<VolkswagenCar> filterByBrandVolkswagenAndMapWithStreamAndFunctionRef(List<Car> cars) {
+        return cars
                 .stream()
                 .filter(car -> car.brand().equals("Volkswagen"))
                 .map(VolkswagenCar::new)
@@ -201,7 +165,7 @@ public class Operations {
      * using Stream API and lambda for predicate
      * Type of comps: String (non-primitive)
      */
-    private static long countBrandWithStreamAndFunctionRef() {
+    public long countBrandWithStreamAndFunctionRef(List<Car> cars) {
         return cars
                 .stream()
                 .filter(car -> car.brand().equals("Volkswagen"))
@@ -209,13 +173,38 @@ public class Operations {
     }
 
     /**
-     * Count the amount of complex objects in an array
-     * using Stream API and lambda for predicate
+     * Group all elements in array by brand
+     * using Stream API and method reference
      * Type of comps: String (non-primitive)
      */
-    private static Map<String, List<Car>> orderByBrandWithStreamAndFunctionRef() {
+    public Map<String, List<Car>> groupByBrandWithStreamAndFunctionRef(List<Car> cars) {
         return cars
                 .stream()
                 .collect(Collectors.groupingBy(Car::brand));
+    }
+
+    /**
+     * Sort all elements in array by model, filter by
+     * color YELLOW and print the ID using Stream API
+     * Type of comps: String (non-primitive)
+     */
+    public void sortByModelAndFilerByColorAndPrintIdWithStream(List<Car> cars) {
+        cars
+                .stream()
+                .sorted(Comparator.comparing(Car::model))
+                .filter(car -> car.color().equals(Color.YELLOW))
+                .forEach(car -> System.out.println(car.getId() + ", "));
+    }
+
+    /**
+     * Average of maxSpeed
+     * Type of comps: int (primitive)
+     */
+    public double averageOfMaxSpeed(List<Car> cars) {
+        return cars
+                .stream()
+                .mapToInt(Car::maxSpeed)
+                .average()
+                .getAsDouble();
     }
 }

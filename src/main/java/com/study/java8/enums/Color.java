@@ -4,7 +4,8 @@ public enum Color {
     YELLOW,
     BLUE,
     BROWN,
-    PINK;
+    PINK,
+    GREEN;
 
     public static int getTotalElements() {
         return values().length;

@@ -66,4 +66,8 @@ public class Car implements Auto {
     public int getId() {
         return id;
     }
+
+    public void changeColor(Color newColor) {
+        color = newColor;
+    }
 }
