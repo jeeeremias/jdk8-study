@@ -1,12 +1,16 @@
-package com.study.java8;
+package com.study.java8.streams;
 
-import com.study.java8.enums.Color;
-import com.study.java8.model.Car;
-import com.study.java8.model.VolkswagenCar;
-
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Map;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
+
+import com.study.java8.streams.enums.Color;
+import com.study.java8.streams.model.Car;
+import com.study.java8.streams.model.VolkswagenCar;
 
 public class CarOperationUtils {
 

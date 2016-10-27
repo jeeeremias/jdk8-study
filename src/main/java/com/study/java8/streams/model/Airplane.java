@@ -1,7 +1,7 @@
-package com.study.java8.model;
+package com.study.java8.streams.model;
 
-import com.study.java8.interfaces.Auto;
-import com.study.java8.enums.Color;
+import com.study.java8.streams.interfaces.Auto;
+import com.study.java8.streams.enums.Color;
 
 public class Airplane implements Auto {
     private int maxSpeed;

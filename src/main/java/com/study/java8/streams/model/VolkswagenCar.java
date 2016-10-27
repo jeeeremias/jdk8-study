@@ -1,4 +1,4 @@
-package com.study.java8.model;
+package com.study.java8.streams.model;
 
 public class VolkswagenCar extends Car{
     public VolkswagenCar(Car car) {

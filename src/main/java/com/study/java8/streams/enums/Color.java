@@ -1,4 +1,4 @@
-package com.study.java8.enums;
+package com.study.java8.streams.enums;
 
 public enum Color {
     YELLOW,

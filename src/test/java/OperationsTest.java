@@ -1,6 +1,6 @@
-import com.study.java8.CarOperationUtils;
-import com.study.java8.model.Car;
-import com.study.java8.utils.MockGenerator;
+import com.study.java8.streams.CarOperationUtils;
+import com.study.java8.streams.model.Car;
+import com.study.java8.streams.utils.MockGenerator;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
