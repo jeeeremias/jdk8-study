@@ -1,6 +1,6 @@
-package com.study.java8.streams.interfaces;
+package com.study.java.java8.interfaces;
 
-import com.study.java8.streams.enums.Color;
+import com.study.java.utils.enums.Color;
 
 public interface Auto {
     int maxSpeed();

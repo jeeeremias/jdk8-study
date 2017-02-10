@@ -1,6 +1,6 @@
-import com.study.java8.streams.CarOperationUtils;
-import com.study.java8.streams.model.Car;
-import com.study.java8.streams.utils.MockGenerator;
+import com.study.java.java8.CarOperations;
+import com.study.java.models.Car;
+import com.study.java.utils.MockGenerator;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -14,14 +14,14 @@ public class OperationsTest {
     private List<Car> carsTemp;
     private static List<Car> cars;
     private static final int size = 100000;
-    private static CarOperationUtils carUtils;
+    private static CarOperations carUtils;
 
     @BeforeClass
     public static void init() {
         cars = MockGenerator.generateCars(size);
         assertNotNull(cars);
         assertTrue("Size should be equals or higher than " + size, cars.size() >= size);
-        carUtils = new CarOperationUtils();
+        carUtils = new CarOperations();
     }
 
     @Test

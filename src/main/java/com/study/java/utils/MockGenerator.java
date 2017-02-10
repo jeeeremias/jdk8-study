@@ -1,7 +1,7 @@
-package com.study.java8.streams.utils;
+package com.study.java.utils;
 
-import com.study.java8.streams.enums.Color;
-import com.study.java8.streams.model.Car;
+import com.study.java.utils.enums.Color;
+import com.study.java.models.Car;
 
 import java.util.*;
 

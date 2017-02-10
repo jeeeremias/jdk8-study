@@ -1,7 +1,7 @@
-package com.study.java8.streams.model;
+package com.study.java.models;
 
-import com.study.java8.streams.interfaces.Auto;
-import com.study.java8.streams.enums.Color;
+import com.study.java.utils.enums.Color;
+import com.study.java.java8.interfaces.Auto;
 
 public class Car implements Auto {
     private int id;
